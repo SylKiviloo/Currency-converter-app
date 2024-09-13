@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sylkiviloo/Currency-converter-app/static/css/main.f694b730.css",
+    "main.js": "/sylkiviloo/Currency-converter-app/static/js/main.039bfe7b.js",
+    "static/js/453.1e58026c.chunk.js": "/sylkiviloo/Currency-converter-app/static/js/453.1e58026c.chunk.js",
+    "index.html": "/sylkiviloo/Currency-converter-app/index.html",
+    "main.f694b730.css.map": "/sylkiviloo/Currency-converter-app/static/css/main.f694b730.css.map",
+    "main.039bfe7b.js.map": "/sylkiviloo/Currency-converter-app/static/js/main.039bfe7b.js.map",
+    "453.1e58026c.chunk.js.map": "/sylkiviloo/Currency-converter-app/static/js/453.1e58026c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f694b730.css",
+    "static/js/main.039bfe7b.js"
+  ]
+}
