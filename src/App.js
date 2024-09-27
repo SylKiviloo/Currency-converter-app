@@ -1,8 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
 
-const Home = () => {
+const App = () => {
+  return (
+    <h1>Testing</h1>;
+  )
+}
+
+/*const Home = () => {
   return <h2>Home</h2>;
 }
 
@@ -38,6 +44,6 @@ const App = () => {
       </div>
     </Router>
   );
-}
+}*/
 
 export default App;
