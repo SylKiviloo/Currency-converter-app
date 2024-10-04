@@ -1,3 +1,121 @@
+body { /* done */
+  background-color: #f4efe7;
+}
+
+#logo { /*header img*/
+  margin: 20px;
+  padding: 0;
+  width: 100px;
+  height: 100px;
+  background-image: url("images/tree-logo1.png");
+}
+
+header h1 {
+  color: #fff;
+  font-size: 2.5rem;
+  margin: 0 auto;
+  align-self: center;
+}
+
+p {
+  font-size: .6rem;
+  margin: 0 auto;
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+/* done */
+.bg-container { 
+  background-image: url('images/coins.jpg');
+  background-size: cover;
+  width: 35vw;
+  height: 100vh;
+}
+
+#currency-pair {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  width: 100%;
+  gap: 2rem;
+  border: 1px solid red;
+}
+
+.box {
+ width: 30vw;
+ height: 30vh;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-around;
+ align-items: center;
+ border: 1px solid blue;
+}
+
+.currency-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #000;
+  border-radius: 100%;
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+input, select{
+  width: 4rem;
+  height: 2.5rem;
+}
+
+#center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-around;
+  gap: 20px;
+  border: 2px solid green;
+}
+
+#reverse-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  margin: auto;
+  position: ;
+  z-index: 2;
+  align-self: center;
+  
+  border: 2px solid purple;
+}
+
+#equals {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+#container p {
+  margin-top: auto;
+}
+
+footer {
+  background-color: #3c4142;
+  color: #fff;
+  width: 100%;
+  padding: 30px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+footer p {
+  font-size: 1.5rem;
+}
+
+/* default styles - not needed */
 .App {
   text-align: center;
 }
