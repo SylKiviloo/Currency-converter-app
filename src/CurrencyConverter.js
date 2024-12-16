@@ -1,4 +1,5 @@
 import React from 'react';
+import Chart from 'chart.js/auto';
 import currencies from './utilities/currencies';
 import { checkStatus, json } from './utilities/fetchUtils';
 
@@ -19,12 +20,15 @@ class CurrencyConverter extends React.Component {
       quoteValue: 0, //1 * 109.55,
       loading: false, //temporarily false as we don't have data yet
     };
+
+    this.chartRef = React.createRef(); //for historical chart
   }
 
   //add fetch request for default rate and call it when component mounts
   componentDidMount() {
     const { baseAcronym, quoteAcronym } = this.state;
     this.getRate(baseAcronym, quoteAcronym);
+    this.getHistoricalRates(baseAcronym, quoteAcronym); //call the getHistoricalRates method
   }
 
   getRate = (base, quote) => {
@@ -45,6 +49,47 @@ class CurrencyConverter extends React.Component {
         });
       })
       .catch(error => console.error(error.message));
+  }
+
+  getHistoricalRates = (base, quote) => {  //to fetch with API
+    const endDate = new Date().toISOString().split('T')[0]; //turn date into format API can use
+    const startDate = new Date((new Date).getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]; //calculate 30 days ago
+    fetch(`https://api.frankfurter.app/${startDate}..${endDate}?from=${base}&to=${quote}`)
+      .then(checkStatus)
+      .then(json)
+      .then(data => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        const chartLabels = Object.keys(data.rates); //an array to store the dates info
+        const chartData = Object.values(data.rates).map(rate => rate[quote]); //an array to store the rates info
+        const chartLabel = `${base}/${quote}`;
+        this.buildChart(chartLabels, chartData, chartLabel); //to create a dynamic label for the chart
+      })
+      .catch(error => console.error(error.message));
+  }
+  buildChart = (labels, data, label) => { //for historical rates
+    const chartRef = this.chartRef.current.getContext("2d");
+    if (typeof this.chart !== "undefined") {
+      this.chart.destroy();
+    }
+    this.chart = new Chart(this.chartRef.current.getContext("2d"), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: label,
+            data,
+            fill: false,
+            tension: 0,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+      }
+    })
   }
  
   //currency conversion functions for when user changes the value in an input field
@@ -87,6 +132,7 @@ class CurrencyConverter extends React.Component {
     const baseAcronym = event.target.value;
     this.setState({ baseAcronym });
     this.getRate(baseAcronym, this.state.quoteAcronym);
+    this.getHistoricalRates(baseAcronym, this.state.quoteAcronym);
   }
 
   changeQuoteAcronym = (event) => {
@@ -94,6 +140,7 @@ class CurrencyConverter extends React.Component {
     const quoteAcronym = event.target.value;
     this.setState({ quoteAcronym });
     this.getRate(this.state.baseAcronym, quoteAcronym);
+    this.getHistoricalRates(this.state.baseAcronym, quoteAcronym);
   }
 
   
@@ -136,6 +183,7 @@ class CurrencyConverter extends React.Component {
             <small className="text-secondary">{currencies[quoteAcronym].name}</small>
           </div>
         </form>
+        <canvas ref={this.chartRef} />
       </React.Fragment>
     )
   }
