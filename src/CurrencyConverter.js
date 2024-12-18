@@ -16,7 +16,7 @@ class CurrencyConverter extends React.Component {
       //rate: 109.55,
       baseAcronym: params.get('base') || 'USD', //use USD and JPY as defaults if base and quote are unavailable
       baseValue: 0,
-      quoteAcronym: params.get('quote') || 'JPY',
+      quoteAcronym: params.get('quote') || 'CDN',
       quoteValue: 0, //1 * 109.55,
       loading: false, //temporarily false as we don't have data yet
     };
@@ -68,6 +68,7 @@ class CurrencyConverter extends React.Component {
       })
       .catch(error => console.error(error.message));
   }
+
   buildChart = (labels, data, label) => { //for historical rates
     const chartRef = this.chartRef.current.getContext("2d");
     if (typeof this.chart !== "undefined") {
@@ -151,10 +152,9 @@ class CurrencyConverter extends React.Component {
     return (
       <React.Fragment>
         <div className="text-center p-3">
-          <h2 className="mb-2">Currency Converter</h2>
-          <h4>1 {baseAcronym} to 1 {quoteAcronym} = {rate} {currencies[quoteAcronym].name}</h4>
+          <h4>1 {currencies[baseAcronym].name}  = {rate} {currencies[quoteAcronym].name}</h4>
         </div>
-        <form className="form-row p-3 bg-light justify-content-center">
+        <form className="form-row p-3 bg-info justify-content-center">
           <div className="form-group col-md-5 mb-0">
             <select value={baseAcronym} onChange={this.changeBaseAcronym} className="form-control form-control-lg mb-2" disabled={loading}>
               {currencyOptions}
@@ -183,6 +183,9 @@ class CurrencyConverter extends React.Component {
             <small className="text-secondary">{currencies[quoteAcronym].name}</small>
           </div>
         </form>
+        <div className="text-center p-3 mt-4">
+          <h4>Historical Rates</h4>
+        </div>
         <canvas ref={this.chartRef} />
       </React.Fragment>
     )
